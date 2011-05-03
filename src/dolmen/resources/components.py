@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import grokcore.component as grok
+from grokcore.component import baseclass
+from dolmen.viewlet import view, slot
 from dolmen.viewlet.components import ViewletManager, Viewlet
 from dolmen.viewlet.interfaces import IViewlet
-from dolmen.viewlet.manager import ViewletManagerBase
 from fanstatic import Resource
 from zope.schema import List
+from zope.interface import implements
 from zope.schema.fieldproperty import FieldProperty
 
 
@@ -25,10 +26,10 @@ class IResourceViewlet(IViewlet):
 class ResourcesManager(ViewletManager):
     """A manager which sole purpose is to render ResourceViewlets.
     """
-    grok.baseclass()
+    baseclass()
 
     def __init__(self, context, request, view):
-        ViewletManagerBase.__init__(self, context, request, view)
+        ViewletManager.__init__(self, context, request, view)
         self.context = context
         self.request = request
         self.view = view
@@ -49,9 +50,9 @@ class ResourcesManager(ViewletManager):
 class ResourceViewlet(Viewlet):
     """A viewlet including resources.
     """
-    grok.baseclass()
-    grok.implements(IResourceViewlet)
-    grok.viewletmanager(ResourcesManager)
+    baseclass()
+    slot(ResourcesManager)
+    implements(IResourceViewlet)
 
     resources = FieldProperty(IResourceViewlet['resources'])
 

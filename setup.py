@@ -13,16 +13,18 @@ install_requires = [
     'fanstatic',
     'setuptools',
     'zope.schema',
+    'grokcore.component',
+    'zope.i18nmessageid',
     ]
 
 tests_require = [
     'grokcore.component',
     'pytest',
     'zope.component [test]',
-    'zope.interface',
-    'zope.principalregistry',
-    'zope.security',
-    'zope.securitypolicy',
+    'cromlech.browser [test]',
+    'webob',
+    'zope.testing',
+    'WebTest',
     ]
 
 setup(name = name,

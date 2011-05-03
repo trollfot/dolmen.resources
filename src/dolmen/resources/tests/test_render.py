@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import pytest
-from cromlech.io.testing import TestRequest, TestResponse
-from cromlech.browser.testing import TestView, XMLDiff
 from cromlech.browser import IView
-from zope.interface import implements
+from cromlech.browser.testing import TestView, XMLDiff
+from cromlech.io.testing import TestRequest
 from dolmen.resources import ResourcesManager, ResourceViewlet
 from dolmen.viewlet import slot, view
-from fanstatic import Library, Resource, get_needed, NEEDED, Injector
+from fanstatic import Library, Resource, get_needed, Injector
 from grokcore.component import testing
-from zope.testing.cleanup import cleanUp
 from webtest import TestApp
+from zope.interface import implements
+from zope.testing.cleanup import cleanUp
 
 
 class MyView(TestView):

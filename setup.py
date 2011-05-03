@@ -11,20 +11,18 @@ history = open(join('docs', 'HISTORY.txt')).read()
 install_requires = [
     'dolmen.viewlet',
     'fanstatic',
-    'setuptools',
-    'zope.schema',
     'grokcore.component',
-    'zope.i18nmessageid',
+    'setuptools',
+    'zope.interface',
+    'zope.schema',
     ]
 
 tests_require = [
-    'grokcore.component',
-    'pytest',
-    'zope.component [test]',
-    'cromlech.browser [test]',
-    'webob',
-    'zope.testing',
     'WebTest',
+    'cromlech.browser [test]',
+    'cromlech.io [test]',
+    'grokcore.component',
+    'zope.testing',
     ]
 
 setup(name = name,

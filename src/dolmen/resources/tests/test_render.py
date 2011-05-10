@@ -5,7 +5,7 @@ from cromlech.browser.testing import TestView, XMLDiff
 from cromlech.io.testing import TestRequest
 from dolmen.resources import ResourcesManager, ResourceViewlet
 from dolmen.viewlet import slot, view
-from fanstatic import Library, Resource, get_needed, Injector
+from fanstatic import Library, Resource, Injector
 from grokcore.component import testing
 from webtest import TestApp
 from zope.interface import implements
@@ -39,17 +39,12 @@ class MyApp(object):
     def __call__(self, environ, start_response):
         start_response('200 OK', [])
 
-        # configuration
-        needed = get_needed()
-        needed.base_url = 'http://testapp'
-
         # Resource viewlets
         request = TestRequest()
-        view = self.view(self.context, request)
+        renderer = self.view(self.context, request)
 
-        manager = Resources(self.context, request, view)
-        manager()
-        return view()
+        Resources(self.context, request, renderer)()
+        return renderer()
 
 
 def setup_module(module):
@@ -75,15 +70,20 @@ def test_inject():
         slot(Resources)
         resources = [x1, x2]
 
-    expected = '''<html><head>
-         <link rel="stylesheet" type="text/css"
-               href="http://testapp/fanstatic/foo/b.css" />
-         <script type="text/javascript"
-               src="http://testapp/fanstatic/foo/a.js"></script>
-         </head><body>A view</body></html>'''
+    expected = '''
+    <html>
+      <head>
+        <link rel="stylesheet" type="text/css"
+              href="/fanstatic/foo/b.css" />
+          <script type="text/javascript"
+                  src="/fanstatic/foo/a.js"></script>
+      </head>
+      <body>A view</body>
+    </html>
+    '''
 
     testing.grok_component('myresources', MyResources)
-    
+
     app = TestApp(Injector(MyApp(object(), MyView)))
     res = app.get('/')
     assert XMLDiff(res.body, expected) is None

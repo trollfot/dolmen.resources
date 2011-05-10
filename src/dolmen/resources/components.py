@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from grokcore.component import baseclass
-from dolmen.viewlet import view, slot
+from dolmen.viewlet import slot
 from dolmen.viewlet.components import ViewletManager, Viewlet
 from dolmen.viewlet.interfaces import IViewlet
 from fanstatic import Resource

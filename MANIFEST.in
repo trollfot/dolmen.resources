@@ -1,2 +1,2 @@
-recursive-include src/dolmen/resources *.txt *.py
+recursive-include src/dolmen/resources *.txt *.py *.css *.js
 recursive-include docs *.txt
